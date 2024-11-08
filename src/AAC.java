@@ -189,7 +189,7 @@ public class AAC implements ActionListener {
 			this.startIndex = 0;
 			this.endIndex = Math.min(NUM_ACROSS * NUM_DOWN, this.images.length);
 		} else if (actionCommand.equals("add")) {
-			JFileChooser chooser = new JFileChooser();
+			JFileChooser chooser = new JFileChooser(".");
 			int returnVal = chooser.showOpenDialog(frame);
 			String imageLoc = "";
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
