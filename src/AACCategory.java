@@ -1,5 +1,5 @@
 import java.util.NoSuchElementException;
-
+import java.util.HashMap;
 /**
  * Represents the mappings for a single category of items that should
  * be displayed
@@ -8,14 +8,17 @@ import java.util.NoSuchElementException;
  *
  */
 public class AACCategory implements AACPage {
-
+        
+    private String name;
+    private HashMap<String, String> items;
 	
 	/**
 	 * Creates a new empty category with the given name
 	 * @param name the name of the category
 	 */
 	public AACCategory(String name) {
-
+            this.name = name;
+            this.items = new HashMap<>();
 	}
 	
 	/**
@@ -23,8 +26,9 @@ public class AACCategory implements AACPage {
 	 * @param imageLoc the location of the image
 	 * @param text the text that image should speak
 	 */
+    @Override
 	public void addItem(String imageLoc, String text) {
-
+            items.put(imageLoc, text);
 	}
 
 	/**
@@ -32,16 +36,18 @@ public class AACCategory implements AACPage {
 	 * @return the array of image locations; if there are no images,
 	 * it should return an empty array
 	 */
+    @Override
 	public String[] getImageLocs() {
-		return new String[0];
+		return items.keySet().toArray(new String[0]);
 	}
 
 	/**
 	 * Returns the name of the category
 	 * @return the name of the category
 	 */
+    @Override
 	public String getCategory() {
-		return "";
+		return name;
 	}
 
 	/**
@@ -51,8 +57,12 @@ public class AACCategory implements AACPage {
 	 * @throws NoSuchElementException if the image provided is not in the current
 	 * 		   category
 	 */
+    @Override
 	public String select(String imageLoc) {
-		return "";
+            if(!items.containsKey(imageLoc)){
+                throw new NoSuchElementException("Image provided is not in the current category");
+            }
+		return items.get(imageLoc);
 	}
 
 	/**
@@ -60,7 +70,8 @@ public class AACCategory implements AACPage {
 	 * @param imageLoc the location of the category
 	 * @return true if it is in the category, false otherwise
 	 */
+    @Override
 	public boolean hasImage(String imageLoc) {
-		return false;
+		return items.containsKey(imageLoc);
 	}
 }
